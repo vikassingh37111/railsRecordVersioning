@@ -3,8 +3,8 @@ class ApplicationRecord < ActiveRecord::Base
 
 	after_commit :store_history
 	
-	def get_history
-		ModelHistory.where(:record_id => id, :model => model_name.to_s).all
+	def versions
+		ModelHistory.where(:record_id => id, :model => model_name.to_s).order(:action_time).all
 	end
 
 	def store_history
